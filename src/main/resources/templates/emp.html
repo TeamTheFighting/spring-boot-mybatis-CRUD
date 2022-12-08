@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사원 목록 페이지</title>
+</head>
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	.container {
+		margin: 50 auto;
+	}
+	
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+	
+	td, th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+	
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+	tr:hover{
+		cursor: pointer;
+	}
+</style>
+<body>
+	<!--사원 상세 정보  -->
+	<h3>사원 정보</h3>	
+	<input id="ename" type="text" disabled="disabled" placeholder="사원 이름">
+	<input id="comm" type="text" disabled="disabled" placeholder="사원 보너스">
+	<input id="sal" type="text" disabled="disabled" placeholder="사원 급여">
+
+	<!--사원 삭제  -->
+
+	<!--사원 수정 -->
+
+	<!--사원 추가  -->
+
+	<!--사원목록 구현하기 -->
+	<h3>사원 목록</h3>
+	<div class="container">
+		<table>
+			<tr>
+				<th>사원번호</th>
+				<th>사원이름</th>
+				<th>직업</th>
+				<th>급여</th>
+				<th>입사날짜</th>
+				<th>부서이름</th>
+				<th>부서위치</th>
+			</tr>
+			<tbody id="data">
+			</tbody>
+		</table>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	callApi();
+	
+	function callApi() {
+		$.ajax({
+			url : '/api/v1/emp',
+			type : 'GET',
+			dataType : 'json',
+			success : function(response) {
+				var html = '';
+				for (var i = 0; i < response.length; i++) {
+					html += '<tr onclick="getEmp('+response[i].empno+')"><td>' + response[i].empno + '</td><td>'
+							+ response[i].ename + '</td><td>' + response[i].job
+							+ '</td><td>' + response[i].sal + '</td><td>'
+							+ response[i].hiredate + '</td><td>'
+							+ response[i].dname + '</td><td>' + response[i].loc
+							+ '</td></tr>';
+				}
+				$('#data').append(html);
+			}
+		});
+	}
+	
+	function getEmp(empno){
+		$.ajax({
+			url : '/api/v1/emp/'+empno,
+			type : 'GET',
+			dataType : 'json',
+			success : function(response) {
+				$('#ename').val(response.ename);
+				$('#comm').val(response.comm);
+				$('#sal').val(response.sal);
+			}
+		});
+	}
+	
+	
+	
+	
+	
+</script>
+</html>

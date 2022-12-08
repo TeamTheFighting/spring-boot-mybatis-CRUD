@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dw.emp.mapper.EmpMapper">
+	
+	<select id="selectEmp" resultType="com.dw.emp.vo.EmpVO">
+			SELECT 
+				empno,
+				ename,
+				job,
+				sal,
+				hiredate,
+				loc,
+				dname
+			FROM emp AS e
+			INNER JOIN dept AS d
+			ON e.deptno = d.deptno
+	</select>
+
+
+	<select id="selectEmpfindByEmpno" resultType="com.dw.emp.vo.EmpVO">
+		SELECT 
+		 ename,
+		 ifnull(sal, 100) AS sal,
+		 ifnull(comm, 0) AS comm
+		FROM emp
+		WHERE empno = #{empno}
+	</select>
+
+</mapper>

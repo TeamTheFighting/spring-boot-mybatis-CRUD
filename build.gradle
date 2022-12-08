@@ -1,0 +1,33 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.0'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.dw'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	//devtools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//롬복
+	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok'
+	//MySQL
+	runtimeOnly 'mysql:mysql-connector-java'
+	//ORM (내가 작성한 SQL 결과를 JAVA로 변환) Mybatis or JPA
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
