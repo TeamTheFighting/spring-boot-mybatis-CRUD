@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css" />
+<title>게시판 만들기</title>
+</head>
+<body>
+	<div class="container">
+		<div class="section-input">
+			<div class="card-header">
+				<h6>게시물 작성</h6>
+			</div>
+			<div class="input-wrapper">
+				<input type="text" placeholder="제목 입력..." /> 
+				<input type="text" placeholder="작성자 입력..." />
+				<textarea id="content" name="content" rows="40"></textarea>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="//cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
+<script type="text/javascript">
+	CKEDITOR.replace('content',{});
+</script>
+</html>
