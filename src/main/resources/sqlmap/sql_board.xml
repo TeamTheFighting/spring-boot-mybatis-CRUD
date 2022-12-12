@@ -3,5 +3,40 @@
 <mapper namespace="com.dw.emp.mapper.BoardMapper">
 	
 	
+	<insert id="insertBoard">
+		INSERT INTO board
+		(
+			title,
+			contents,
+			writer
+		)
+		VALUES
+		(
+			#{title},
+			#{contents},
+			#{writer}
+		)
+	</insert>
+	
+	<select id="selectBoardFindByBoardNo" resultType="com.dw.emp.vo.BoardVO">
+		SELECT 
+			title,
+			contents,
+			writer
+		FROM board
+		WHERE board_no = #{boardNo}
+	</select>
+	
+	 <select id="selectBoard" resultType="com.dw.emp.vo.BoardVO">
+	 	SELECT
+	 		board_no AS boardNo,
+	 		title,
+			contents,
+			writer,
+			create_at AS createAt,
+			board_count AS boardCount
+	 	FROM board
+	 </select>
+	
 
 </mapper>

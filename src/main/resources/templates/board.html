@@ -15,7 +15,7 @@
           <h6>DW 게시판</h6>
         </div>
         <div class="btn-wrapper">
-          <button type="button">게시물 등록</button>
+          <button type="button" onclick="goPage()">게시물 등록</button>
         </div>
       </div>
       <div class="section-table">
@@ -37,14 +37,14 @@
                       <th>Count</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody id="data">
+                    <!-- <tr>
                       <td>1</td>
-                      <td><a href="#">네이마르 부상..? 크로아티아 승리?</a></td>
+                      <td onclick="detailBoard(5)"><a href="#">네이마르 부상..? 크로아티아 승리?</a></td>
                       <td>현상원</td>
                       <td>2015/12/09</td>
                       <td>0</td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -60,6 +60,33 @@
       crossorigin="anonymous"
     ></script>
     <script>
-	
+    	getBoardList();
+    	function getBoardList(){
+    		$.ajax({
+    			url : '/api/v1/board',
+    			type : 'GET',
+    			dataType : 'json',
+    			success : function(response) {
+    				var html = '';
+    				for (var i = 0; i < response.length; i++) {
+    					html += '<tr><td>' + response[i].boardNo + '</td><td onclick="detailBoard('+response[i].boardNo+')"><a href="#">'
+    							+ response[i].title + '</a></td><td>' + response[i].writer
+    							+ '</td><td>' + response[i].createAt + '</td><td>'
+    							+ response[i].boardCount + '</td></tr>';
+    				}
+    				$('#data').append(html);
+    			}
+    		});
+    	}
+    
+		function goPage(){
+			location.href = '/write';
+		}
+		
+		function detailBoard(boardNo){ //게시물 상세화면으로 이동
+			console.log(boardNo);
+			location.href = '/board/'+boardNo; //게시판 PK URL(Controller)에 전달
+		}
+		
     </script>
 </html>
